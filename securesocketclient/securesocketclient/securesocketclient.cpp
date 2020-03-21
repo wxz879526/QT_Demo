@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include <QtNetwork/QSslSocket>
 #include <QtNetwork/QSslCipher>
+#include <QMessageBox>
+#include "ui_sslerrors.h"
+#include "certificateinfo.h"
 #include "securesocketclient.h"
 
 securesocketclient::securesocketclient(QWidget *parent)
@@ -13,7 +16,7 @@ securesocketclient::securesocketclient(QWidget *parent)
 
 	connect(ui.hostNameEdit, &QLineEdit::textChanged, this, &securesocketclient::updateEnabledState);
 	connect(ui.connectButton, &QPushButton::clicked, this, &securesocketclient::secureConnect);
-	connect(ui.sendButton, &QPushButton::click, this, &securesocketclient::sendData);
+	connect(ui.sendButton, &QPushButton::clicked, this, &securesocketclient::sendData);
 
 	padLock = new QToolButton;
 	padLock->setIcon(QIcon(":/encrypted.png"));
@@ -54,7 +57,7 @@ void securesocketclient::updateEnabledState()
 	ui.sessionInput->setEnabled(connected);
 	ui.sessionOutput->setEnabled(connected);
 	ui.sessionInputLabel->setEnabled(connected);
-	ui.connectButton->setEnabled(connected);
+	ui.sendButton->setEnabled(connected);
 }
 
 void securesocketclient::secureConnect()
@@ -102,22 +105,48 @@ void securesocketclient::socketReadyRead()
 
 void securesocketclient::sendData()
 {
-
+	QString input = ui.sessionInput->text();
+	appendString(input + '\n');
+	socket->write(input.toUtf8() + "\r\n");
+	ui.sessionInput->clear();
 }
 
 void securesocketclient::socketError(QAbstractSocket::SocketError error)
 {
+	if (handlingSocketError)
+		return;
 
+	handlingSocketError = true;
+	//QMessageBox::critical(this, tr("Connection error"), socket->errorString());
+	handlingSocketError = false;
 }
 
 void securesocketclient::sslErrors(const QList<QSslError> &errors)
 {
+	QDialog errorDialog(this);
+	Ui::sslerrors ui;
+	ui.setupUi(&errorDialog);
+	connect(ui.certificateChainButton, &QPushButton::clicked, this, &securesocketclient::displayCertificateInfo);
 
+	for (const auto &error : errors)
+	{
+		ui.sslErrorList->addItem(error.errorString());
+
+		executingDialog = true;
+		if (errorDialog.exec() == QDialog::Accepted)
+			socket->ignoreSslErrors();
+		executingDialog = false;
+
+		if (socket->state() != QAbstractSocket::ConnectedState)
+			socketStateChanged(socket->state());
+	}
 }
 
 void securesocketclient::displayCertificateInfo()
 {
-
+	certificateinfo info;
+	info.setCertificateChain(socket->peerCertificateChain());
+	info.exec();
 }
 
 void securesocketclient::setupSecureSocket()

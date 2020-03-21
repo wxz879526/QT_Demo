@@ -34,9 +34,15 @@
     <ClCompile Include="securesocketclient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="certificateinfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -44,9 +50,18 @@
     <QtMoc Include="securesocketclient.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="certificateinfo.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="securesocketclient.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="certificateinfo.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="sslerrors.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -54,5 +69,8 @@
     <QtRcc Include="securesocketclient.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="securesocketclient.rc" />
   </ItemGroup>
 </Project>
