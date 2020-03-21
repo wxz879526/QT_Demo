@@ -36,4 +36,7 @@ private:
 	QToolButton *padLock = nullptr;
 	bool handlingSocketError = false;
 	bool executingDialog = false;
+protected:
+	virtual void customEvent(QEvent *event) override;
+
 };

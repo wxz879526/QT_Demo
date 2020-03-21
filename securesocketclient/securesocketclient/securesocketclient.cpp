@@ -6,6 +6,18 @@
 #include "certificateinfo.h"
 #include "securesocketclient.h"
 
+class QCustomEvent : public QEvent
+{
+public:
+	const static Type TYPE = static_cast<Type>(QEvent::User + 0x10);
+	explicit QCustomEvent()
+		: QEvent(TYPE)
+	{
+
+	}
+
+};
+
 securesocketclient::securesocketclient(QWidget *parent)
 	: QWidget(parent)
 {
@@ -116,9 +128,7 @@ void securesocketclient::socketError(QAbstractSocket::SocketError error)
 	if (handlingSocketError)
 		return;
 
-	handlingSocketError = true;
-	//QMessageBox::critical(this, tr("Connection error"), socket->errorString());
-	handlingSocketError = false;
+	QCoreApplication::postEvent(this, new QCustomEvent);
 }
 
 void securesocketclient::sslErrors(const QList<QSslError> &errors)
@@ -167,4 +177,14 @@ void securesocketclient::appendString(const QString& line)
 	cursor.movePosition(QTextCursor::End);
 	cursor.insertText(line);
 	ui.sessionOutput->verticalScrollBar()->setValue(ui.sessionOutput->verticalScrollBar()->maximum());
+}
+
+void securesocketclient::customEvent(QEvent *event)
+{
+	if (event->type() == QCustomEvent::TYPE)
+	{
+		handlingSocketError = true;
+		QMessageBox::critical(this, tr("Connection error"), socket->errorString());
+		handlingSocketError = false;
+	}
 }
