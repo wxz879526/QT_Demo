@@ -16,12 +16,14 @@ loopback::loopback(QWidget *parent)
 	QVBoxLayout *mainLayout = new QVBoxLayout();
 
 	clientProgressBar = new QProgressBar;
+	clientProgressBar->setTextVisible(false);
 	mainLayout->addWidget(clientProgressBar);
 
 	clientStatusLabel = new QLabel(tr("Client ready"));
 	mainLayout->addWidget(clientStatusLabel);
 
 	serverProgressBar = new QProgressBar;
+	serverProgressBar->setTextVisible(false);
 	mainLayout->addWidget(serverProgressBar);
 
 	serverStatusLabel = new QLabel(tr("Server ready"));
@@ -104,6 +106,7 @@ void loopback::updateServerProgress()
 	bytesReceived += int(tcpServerConnection->bytesAvailable());
 	tcpServerConnection->readAll();
 
+	serverProgressBar->setTextVisible(true);
 	serverProgressBar->setMaximum(TotalBytes);
 	serverProgressBar->setValue(bytesReceived);
 	serverStatusLabel->setText(tr("Received: %1MB").arg(bytesReceived / (1024 * 1024)));
@@ -124,6 +127,7 @@ void loopback::updateClientProgress(qint64 numBytes)
 	if (bytesToWrite > 0 && tcpClient.bytesToWrite() <= 4 * PayloadSize)
 		bytesToWrite -= tcpClient.write(QByteArray(qMin(bytesToWrite, PayloadSize), '@'));
 
+	clientProgressBar->setTextVisible(true);
 	clientProgressBar->setMaximum(TotalBytes);
 	clientProgressBar->setValue(bytesWritten);
 	clientStatusLabel->setText(tr("Sent: %1MB").arg(bytesWritten/(1024*1024)));
