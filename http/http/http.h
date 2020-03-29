@@ -16,7 +16,7 @@ class QNetworkReply;
 class QCheckBox;
 QT_END_NAMESPACE
 
-class ProgressDialg : QProgressDialog {
+class ProgressDialg : public QProgressDialog {
 	Q_OBJECT
 
 public:
