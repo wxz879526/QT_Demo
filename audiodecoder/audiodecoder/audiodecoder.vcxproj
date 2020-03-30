@@ -80,11 +80,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="audiodecoder.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="wavefilewriter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="wavefilewriter.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="audiodecoder.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

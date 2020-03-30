@@ -27,9 +27,15 @@
     <ClCompile Include="wavefilewriter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="audiodecoder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="wavefilewriter.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="audiodecoder.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
