@@ -78,6 +78,21 @@ bool WaveFileWriter::write(const QAudioBuffer &buffer)
 	return written == buffer.byteCount();
 }
 
+
+bool WaveFileWriter::close()
+{
+	bool result = false;
+	if (file.isOpen()) {
+		Q_ASSERT(m_dataLength < INT_MAX);
+		result = writeDataLength();
+
+		m_dataLength = 0;
+		file.close();
+	}
+
+	return result;
+}
+
 bool WaveFileWriter::writeHeader(const QAudioFormat &format)
 {
 	if (format.byteOrder() == QAudioFormat::BigEndian

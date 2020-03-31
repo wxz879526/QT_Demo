@@ -29,6 +29,9 @@ public slots:
 	void stateChanged(QAudioDecoder::State newState);
 	void finished();
 
+	void playbackStatusChanged();
+	void playingChanged();
+
 private slots:
 	void updateProgress();
 
@@ -36,7 +39,7 @@ private:
 	bool m_isPlayback;
 	bool m_isDelete;
 	QAudioDecoder m_decoder;
-	QTextStream m_count;
+	QTextStream m_cout;
 
 	QString m_targetFileName;
 	WaveFileWriter m_fileWriter;
