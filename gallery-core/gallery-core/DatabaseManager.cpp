@@ -10,18 +10,18 @@ DatabaseManager &DatabaseManager::instance()
 
 DatabaseManager::~DatabaseManager()
 {
-
+    mDatabase->close();
+    delete mDatabase;
 }
 
 DatabaseManager::DatabaseManager(const QString &path)
     : mDatabase(new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE")))
+    , albumDao(*mDatabase)
+    , picDao(*mDatabase)
 {
     mDatabase->setDatabaseName(path);
     mDatabase->open();
-}
 
-DatabaseManager& DatabaseManager::operator=(const DatabaseManager &rhs)
-{
-    mDatabase->close();
-    delete mDatabase;
+    albumDao.init();
+    picDao.init();
 }

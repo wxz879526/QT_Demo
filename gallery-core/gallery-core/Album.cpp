@@ -17,7 +17,7 @@ void Album::setId(int id)
     mId = id;
 }
 
-QString Album::name()
+QString Album::name() const
 {
     return mName;
 }

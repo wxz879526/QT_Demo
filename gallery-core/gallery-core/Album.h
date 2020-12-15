@@ -11,7 +11,7 @@ public:
 
     int id() const;
     void setId(int id);
-    QString name();
+    QString name() const;
     void setName(const QString &name);
 
 private:
