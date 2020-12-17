@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -19,13 +19,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    CpuWidget.cpp \
+    MemoryWidget.cpp \
     SysInfo.cpp \
+    SysInfoWidget.cpp \
     main.cpp \
     MainWindow.cpp
 
 HEADERS += \
+    CpuWidget.h \
     MainWindow.h \
-    SysInfo.h
+    MemoryWidget.h \
+    SysInfo.h \
+    SysInfoWidget.h
 
 windows {
    SOURCES += SysInfoWindowsImpl.cpp
