@@ -20,7 +20,7 @@ void PictureDao::init() const
     }
 }
 
-void PictureDao::addPicture(Picture &pic) const
+void PictureDao::addPictureInAlbum(int albumId, Picture &pic) const
 {
     QSqlQuery query(mDatabase);
     query.prepare("INSERT INTO pictures (album_id, url) VALUES(:album_id,:url)");
@@ -28,6 +28,7 @@ void PictureDao::addPicture(Picture &pic) const
     query.bindValue(":url", pic.fileUrl());
     query.exec();
     pic.setId(query.lastInsertId().toInt());
+    pic.setAlbumId(albumId);
 }
 
 void PictureDao::updataPicture(const Picture &pic) const
@@ -48,9 +49,19 @@ void PictureDao::removePicture(int id) const
     query.exec();
 }
 
-std::unique_ptr<std::vector<std::unique_ptr<Picture>>> PictureDao::pictures() const
+void PictureDao::removePicturesForAlbum(int albumId) const
 {
-    QSqlQuery query("SELECT * FROM pictures", mDatabase);
+    QSqlQuery query(mDatabase);
+    query.prepare("DELETE FROM pictures WHERE album_id=:albumId");
+    query.bindValue(":albumId", albumId);
+    query.exec();
+}
+
+std::unique_ptr<std::vector<std::unique_ptr<Picture>>> PictureDao::picturesForAlbum(int albumId) const
+{
+    QSqlQuery query(mDatabase);
+    query.prepare("SELECT * FROM pictures WHERE album_id=:albumId");
+    query.bindValue(":albumId", albumId);
     query.exec();
     std::unique_ptr<std::vector<std::unique_ptr<Picture>>> list;
     while (query.next())

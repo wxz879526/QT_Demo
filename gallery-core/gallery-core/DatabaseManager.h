@@ -2,6 +2,7 @@
 #define DATABASEMANAGER_H
 
 #include <QString>
+#include <QSqlQuery>
 #include "AlbumDao.h"
 #include "PictureDao.h"
 
@@ -15,11 +16,13 @@ public:
     static DatabaseManager& instance();
     ~DatabaseManager();
 
+    void debugQuery(const QSqlQuery& query);
+
 protected:
     DatabaseManager(const QString &path = DATABASE_FILENAME);
     DatabaseManager &operator=(const DatabaseManager &rhs);
 
-private:
+public:
     QSqlDatabase *mDatabase;
     const AlbumDao albumDao;
     const PictureDao picDao;

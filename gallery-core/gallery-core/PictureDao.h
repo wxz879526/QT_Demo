@@ -14,10 +14,11 @@ public:
     PictureDao(QSqlDatabase &database);
     void init() const;
 
-    void addPicture(Picture &pic) const;
+    void addPictureInAlbum(int albumId, Picture &pic) const;
     void updataPicture(const Picture &pic) const;
     void removePicture(int id) const;
-    std::unique_ptr<std::vector<std::unique_ptr<Picture>>> pictures() const;
+    void removePicturesForAlbum(int albumId) const;
+    std::unique_ptr<std::vector<std::unique_ptr<Picture>>> picturesForAlbum(int albumId) const;
 
 private:
     QSqlDatabase& mDatabase;

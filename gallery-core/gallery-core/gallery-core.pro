@@ -21,15 +21,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     Album.cpp \
     AlbumDao.cpp \
+    AlbumModel.cpp \
     DatabaseManager.cpp \
     Picture.cpp \
-    PictureDao.cpp
+    PictureDao.cpp \
+    PictureModel.cpp
 
 HEADERS += \
     AlbumDao.h \
+    AlbumModel.h \
     DatabaseManager.h \
     Picture.h \
     PictureDao.h \
+    PictureModel.h \
     gallery-core_global.h \
     Album.h
 
