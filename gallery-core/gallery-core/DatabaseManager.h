@@ -2,11 +2,11 @@
 #define DATABASEMANAGER_H
 
 #include <QString>
-#include <QSqlQuery>
 #include "AlbumDao.h"
 #include "PictureDao.h"
 
 class QSqlDatabase;
+class QSqlQuery;
 
 const QString DATABASE_FILENAME = "gallery.db";
 

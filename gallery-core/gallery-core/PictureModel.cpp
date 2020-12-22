@@ -25,7 +25,7 @@ QModelIndex PictureModel::addPicture(const Picture &pic)
 void PictureModel::setAlbumId(int albumId)
 {
     beginResetModel();
-    mAlbumId = -1;
+    mAlbumId = albumId;
     loadPictures(mAlbumId);
     endResetModel();
 }

@@ -1,6 +1,7 @@
 #include "DatabaseManager.h"
 #include <QSqlError>
 #include <QDebug>
+#include <QSqlQuery>
 #include <QSqlDatabase>
 
 
