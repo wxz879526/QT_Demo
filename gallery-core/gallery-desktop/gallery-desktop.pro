@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     AlbumListWidget.cpp \
     AlbumWidget.cpp \
+    GalleryWidget.cpp \
     PictureDelegate.cpp \
     ThumbnailProxyModel.cpp \
     main.cpp \
@@ -26,6 +27,7 @@ SOURCES += \
 HEADERS += \
     AlbumListWidget.h \
     AlbumWidget.h \
+    GalleryWidget.h \
     MainWindow.h \
     PictureDelegate.h \
     ThumbnailProxyModel.h
@@ -33,6 +35,7 @@ HEADERS += \
 FORMS += \
     AlbumListWidget.ui \
     AlbumWidget.ui \
+    GalleryWidget.ui \
     MainWindow.ui
 
 # Default rules for deployment.

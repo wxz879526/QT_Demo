@@ -52,7 +52,7 @@ std::unique_ptr<std::vector<std::unique_ptr<Album>>> AlbumDao::albums() const
 {
     QSqlQuery query("SELECT * FROM albums", mDatabase);
     query.exec();
-    std::unique_ptr<std::vector<std::unique_ptr<Album>>> list;
+    std::unique_ptr<std::vector<std::unique_ptr<Album>>> list = std::make_unique<std::vector<std::unique_ptr<Album>>>();
     while (query.next())
     {
         std::unique_ptr<Album> album = std::make_unique<Album>();

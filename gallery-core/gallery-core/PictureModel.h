@@ -23,6 +23,7 @@ public:
     };
 
     PictureModel(const AlbumModel &albumModel, QObject *parent = nullptr);
+    ~PictureModel();
 
     QModelIndex addPicture(const Picture &pic);
     void setAlbumId(int albumId);

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>429</width>
     <height>300</height>
    </rect>
   </property>
@@ -40,7 +40,7 @@
       <item>
        <widget class="QPushButton" name="addPicturesButton">
         <property name="text">
-         <string>PushButton</string>
+         <string>Add pictures</string>
         </property>
         <property name="icon">
          <iconset resource="res/resource.qrc">
@@ -51,7 +51,7 @@
       <item>
        <widget class="QPushButton" name="editButton">
         <property name="text">
-         <string>PushButton</string>
+         <string>Edit</string>
         </property>
         <property name="icon">
          <iconset resource="res/resource.qrc">
@@ -62,7 +62,7 @@
       <item>
        <widget class="QPushButton" name="deleteButton">
         <property name="text">
-         <string>PushButton</string>
+         <string>Delete</string>
         </property>
         <property name="icon">
          <iconset resource="res/resource.qrc">

@@ -24,7 +24,7 @@ void PictureDao::addPictureInAlbum(int albumId, Picture &pic) const
 {
     QSqlQuery query(mDatabase);
     query.prepare("INSERT INTO pictures (album_id, url) VALUES(:album_id,:url)");
-    query.bindValue(":album_id", pic.albumId());
+    query.bindValue(":album_id", albumId);
     query.bindValue(":url", pic.fileUrl());
     query.exec();
     pic.setId(query.lastInsertId().toInt());
@@ -63,7 +63,7 @@ std::unique_ptr<std::vector<std::unique_ptr<Picture>>> PictureDao::picturesForAl
     query.prepare("SELECT * FROM pictures WHERE album_id=:albumId");
     query.bindValue(":albumId", albumId);
     query.exec();
-    std::unique_ptr<std::vector<std::unique_ptr<Picture>>> list;
+    std::unique_ptr<std::vector<std::unique_ptr<Picture>>> list = std::make_unique<std::vector<std::unique_ptr<Picture>>>();
     while (query.next())
     {
         std::unique_ptr<Picture> pic = std::make_unique<Picture>();

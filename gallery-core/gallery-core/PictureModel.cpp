@@ -11,6 +11,11 @@ PictureModel::PictureModel(const AlbumModel &albumModel, QObject *parent)
     connect(&albumModel, &AlbumModel::rowsRemoved, this, &PictureModel::deletePicturesForAlbum);
 }
 
+PictureModel::~PictureModel()
+{
+    int i = 0;
+}
+
 QModelIndex PictureModel::addPicture(const Picture &pic)
 {
     int rowIndex = rowCount();
@@ -51,15 +56,12 @@ QVariant PictureModel::data(const QModelIndex& index, int role) const
     switch (role) {
         case Qt::DisplayRole:
             return picture.fileUrl().fileName();
-            break;
 
         case Roles::UrlRole:
             return picture.fileUrl();
-            break;
 
         case Roles::FilePathRole:
             return picture.fileUrl().toLocalFile();
-            break;
 
 
         default:
