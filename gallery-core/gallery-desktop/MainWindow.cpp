@@ -1,16 +1,18 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 
-#include<QItemSelectionModel>
-#include<GalleryWidget.h>
-#include<AlbumModel.h>
-#include<PictureModel.h>
-#include"ThumbnailProxyModel.h"
+#include <QItemSelectionModel>
+#include "GalleryWidget.h"
+#include "AlbumModel.h"
+#include "PictureModel.h"
+#include "ThumbnailProxyModel.h"
+#include "PictureWidget.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , mGalleryWidget(new GalleryWidget(this))
+    , mPictureWidget(new PictureWidget(this))
     , mStackWidget(new QStackedWidget(this))
 {
     ui->setupUi(this);
@@ -28,7 +30,14 @@ MainWindow::MainWindow(QWidget *parent)
     mGalleryWidget->setPictureModel(thumbnailModel);
     mGalleryWidget->setPictureSelectionModel(pictureSelectionModel);
 
+    mPictureWidget->setModel(thumbnailModel);
+    mPictureWidget->setSelectionModel(pictureSelectionModel);
+
+    connect(mGalleryWidget, &GalleryWidget::pictureActivated, this, &MainWindow::displayPicture);
+    connect(mPictureWidget, &PictureWidget::backToGallery, this, &MainWindow::displayGallery);
+
     mStackWidget->addWidget(mGalleryWidget);
+    mStackWidget->addWidget(mPictureWidget);
     displayGallery();
 
     setCentralWidget(mStackWidget);
@@ -46,6 +55,6 @@ void MainWindow::displayGallery()
 
 void MainWindow::displayPicture()
 {
-
+    mStackWidget->setCurrentWidget(mPictureWidget);
 }
 

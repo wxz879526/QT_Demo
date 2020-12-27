@@ -9,6 +9,7 @@ namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
 class GalleryWidget;
+class PictureWidget;
 
 class MainWindow : public QMainWindow
 {
@@ -25,6 +26,7 @@ public slots:
 private:
     Ui::MainWindow *ui;
     GalleryWidget *mGalleryWidget;
+    PictureWidget *mPictureWidget;
     QStackedWidget *mStackWidget;
 };
 #endif // MAINWINDOW_H
